@@ -300,7 +300,7 @@
                 CGFloat yVal = yStart + round((1.0 - (datItem.y - self.yMin) / yRangeLen) * availableHeight);
                 [self.backgroundColor setFill];
                 CGContextFillEllipseInRect(c, CGRectMake(xVal - 5.5, yVal - 5.5, 11, 11));
-                [data.color setFill];
+                [datItem.dataPointcolor setFill];
                 CGContextFillEllipseInRect(c, CGRectMake(xVal - 4, yVal - 4, 8, 8));
                 {
                     CGFloat h,s,b,a;
