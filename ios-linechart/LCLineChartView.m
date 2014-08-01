@@ -16,25 +16,27 @@
 @property (readwrite) double y; // should be within the y range
 @property (readwrite) NSString *xLabel; // label to be shown on the x axis
 @property (readwrite) NSString *dataLabel; // label to be shown directly at the data item
+@property (readwrite) UIColor *dataPointcolor;
 
-- (id)initWithhX:(double)x y:(double)y xLabel:(NSString *)xLabel dataLabel:(NSString *)dataLabel;
+- (id)initWithhX:(double)x y:(double)y xLabel:(NSString *)xLabel dataLabel:(NSString *)dataLabel dataPointColor:(UIColor *)dataPointColor;
 
 @end
 
 @implementation LCLineChartDataItem
 
-- (id)initWithhX:(double)x y:(double)y xLabel:(NSString *)xLabel dataLabel:(NSString *)dataLabel {
+- (id)initWithhX:(double)x y:(double)y xLabel:(NSString *)xLabel dataLabel:(NSString *)dataLabel dataPointColor:(UIColor *)dataPointColor {
     if((self = [super init])) {
         self.x = x;
         self.y = y;
         self.xLabel = xLabel;
         self.dataLabel = dataLabel;
+        self.dataPointcolor = dataPointColor;
     }
     return self;
 }
 
-+ (LCLineChartDataItem *)dataItemWithX:(double)x y:(double)y xLabel:(NSString *)xLabel dataLabel:(NSString *)dataLabel {
-    return [[LCLineChartDataItem alloc] initWithhX:x y:y xLabel:xLabel dataLabel:dataLabel];
++ (LCLineChartDataItem *)dataItemWithX:(double)x y:(double)y xLabel:(NSString *)xLabel dataLabel:(NSString *)dataLabel dataPointColor:(UIColor *)dataPointColor {
+    return [[LCLineChartDataItem alloc] initWithhX:x y:y xLabel:xLabel dataLabel:dataLabel dataPointColor:dataPointColor];
 }
 
 @end
@@ -302,10 +304,10 @@
                 CGContextFillEllipseInRect(c, CGRectMake(xVal - 4, yVal - 4, 8, 8));
                 {
                     CGFloat h,s,b,a;
-                    if(CGColorGetNumberOfComponents([data.color CGColor]) < 3)
-                        [data.color getWhite:&b alpha:&a];
+                    if(CGColorGetNumberOfComponents([datItem.dataPointcolor CGColor]) < 3)
+                        [datItem.dataPointcolor getWhite:&b alpha:&a];
                     else
-                        [data.color getHue:&h saturation:&s brightness:&b alpha:&a];
+                        [datItem.dataPointcolor getHue:&h saturation:&s brightness:&b alpha:&a];
                     if(b <= 0.5)
                         [[UIColor whiteColor] setFill];
                     else
