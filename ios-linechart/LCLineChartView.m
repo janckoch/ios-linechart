@@ -205,21 +205,37 @@ const struct Thresholds ThresholdsZero = {0.0, 0.0, 0.0, 0.0};
         CGContextFillRect(c, CGRectMake(xStart, yStart, availableWidth, availableHeight));
 
         // Draw yellow area
-        float upperYellowY = yStart + round((1.0 - (self.thresholds.upperRedBoundary - self.yMin) / (self.yMax - self.yMin)) * availableHeight);
-        float lowerYellowY = yStart + round((1.0 - (self.thresholds.lowerRedBoundary - self.yMin) / (self.yMax - self.yMin)) * availableHeight);
-        float yellowAreaHeight = upperYellowY - lowerYellowY;
-        float maxYellowHeight = availableHeight - lowerYellowY;
+        if (self.thresholds.upperRedBoundary != 0.0 && self.thresholds.lowerRedBoundary != 0.0) {
+            float upperYellowY = yStart + round((1.0 - (self.thresholds.upperRedBoundary - self.yMin) / (self.yMax - self.yMin)) * availableHeight);
+            if (upperYellowY < 0) {
+                upperYellowY = yStart;
+            }
+            float lowerYellowY = yStart + round((1.0 - (self.thresholds.lowerRedBoundary - self.yMin) / (self.yMax - self.yMin)) * availableHeight);
+            float maxLowerYellowY = yStart + availableHeight;
+            if (lowerYellowY < upperYellowY || lowerYellowY > maxLowerYellowY) {
+                lowerYellowY = maxLowerYellowY;
+            }
 
-        [[UIColor colorWithRed:255.0/255.0 green:255.0/255.0 blue:228.0/255.0 alpha:1] set];
-        CGContextFillRect(c, CGRectMake(xStart, fmaxf(lowerYellowY, yStart) , availableWidth, fminf(yellowAreaHeight, maxYellowHeight)));
+            float yellowAreaHeight = upperYellowY - lowerYellowY;
+
+            [[UIColor colorWithRed:255.0/255.0 green:255.0/255.0 blue:228.0/255.0 alpha:1] set];
+            CGContextFillRect(c, CGRectMake(xStart, lowerYellowY , availableWidth, yellowAreaHeight));
+        }
 
         // Draw green area
         float upperGreenY = yStart + round((1.0 - (self.thresholds.upperYellowBoundary - self.yMin) / (self.yMax - self.yMin)) * availableHeight);
+        if (upperGreenY < 0) {
+            upperGreenY = yStart;
+        }
         float lowerGreenY = yStart + round((1.0 - (self.thresholds.lowerYellowBoundary - self.yMin) / (self.yMax - self.yMin)) * availableHeight);
+        float maxLowerGreenY = yStart + availableHeight;
+        if (lowerGreenY < upperGreenY || lowerGreenY > maxLowerGreenY) {
+            lowerGreenY = maxLowerGreenY;
+        }
         float greenAreaHeight = upperGreenY - lowerGreenY;
-        float maxGreenHeight = availableHeight - lowerGreenY;
+
         [[UIColor colorWithRed:205.0/255.0 green:255.0/255.0 blue:205.0/255.0 alpha:1] set];
-        CGContextFillRect(c, CGRectMake(xStart, fmaxf(lowerGreenY, yStart), availableWidth, fminf(greenAreaHeight, maxGreenHeight)));
+        CGContextFillRect(c, CGRectMake(xStart, lowerGreenY, availableWidth, greenAreaHeight));
     }
 
     // draw scale and horizontal lines
