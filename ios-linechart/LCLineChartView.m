@@ -203,10 +203,15 @@ const struct Thresholds ThresholdsZero = {0.0, 0.0, 0.0, 0.0};
         [[UIColor colorWithRed:255.0/255.0 green:99.0/255.0 blue:71.0/255.0 alpha:1] set];
         CGContextFillRect(c, CGRectMake(xStart, yStart, availableWidth, availableHeight));
 
-        float upperYellowY = yStart + round((1.0 - (self.thresholds.upperYellowBoundary - self.yMin) / (self.yMax - self.yMin)) * availableHeight);
-        float lowerYellowY = yStart + round((1.0 - (self.thresholds.lowerYellowBoundary - self.yMin) / (self.yMax - self.yMin)) * availableHeight);
+        float upperYellowY = yStart + round((1.0 - (self.thresholds.upperRedBoundary - self.yMin) / (self.yMax - self.yMin)) * availableHeight);
+        float lowerYellowY = yStart + round((1.0 - (self.thresholds.lowerRedBoundary - self.yMin) / (self.yMax - self.yMin)) * availableHeight);
         [[UIColor colorWithRed:255.0/255.0 green:255.0/255.0 blue:200.0/255.0 alpha:1] set];
         CGContextFillRect(c, CGRectMake(xStart, lowerYellowY, availableWidth, upperYellowY - lowerYellowY));
+
+        float upperGreenY = yStart + round((1.0 - (self.thresholds.upperYellowBoundary - self.yMin) / (self.yMax - self.yMin)) * availableHeight);
+        float lowerGreenY = yStart + round((1.0 - (self.thresholds.lowerYellowBoundary - self.yMin) / (self.yMax - self.yMin)) * availableHeight);
+        [[UIColor colorWithRed:152/255.0 green:251.0/255.0 blue:152.0/255.0 alpha:1] set];
+        CGContextFillRect(c, CGRectMake(xStart, lowerYellowY, availableWidth, upperGreenY - lowerGreenY));
 
         // TODO: Check for available thresolds
         //        CGFloat yVal = yStart + round((1.0 - (self.thresholds.upperRedBoundary - self.yMin) / (self.yMax - self.yMin)) * availableHeight);
