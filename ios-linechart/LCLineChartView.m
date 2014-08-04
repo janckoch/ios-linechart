@@ -98,6 +98,7 @@ const struct Thresholds ThresholdsZero = {0.0, 0.0, 0.0, 0.0};
     self.xAxisLabel.textColor = self.axisLabelColor;
     self.xAxisLabel.textAlignment = NSTextAlignmentCenter;
     self.xAxisLabel.alpha = 0.0;
+    self.xAxisLabel.numberOfLines = 0;
     self.xAxisLabel.backgroundColor = [UIColor clearColor];
     [self addSubview:self.xAxisLabel];
 
