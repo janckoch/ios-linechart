@@ -12,7 +12,14 @@
 
 typedef LCLineChartDataItem *(^LCLineChartDataGetter)(NSUInteger item);
 
+struct Thresholds {
+    float upperRedBoundary;
+    float upperYellowBoundary;
+    float lowerYellowBoundary;
+    float lowerRedBoundary;
 
+} threshold;
+typedef struct Thresholds Thresholds;
 
 @interface LCLineChartDataItem : NSObject
 
@@ -59,6 +66,7 @@ typedef LCLineChartDataItem *(^LCLineChartDataGetter)(NSUInteger item);
 
 @property (strong) UIFont *scaleFont; /// Font in which scale markings are drawn. Defaults to [UIFont systemFontOfSize:10].
 @property (nonatomic,strong) UIColor *axisLabelColor;
+@property (assign) Thresholds thresholds;
 
 - (void)showLegend:(BOOL)show animated:(BOOL)animated;
 

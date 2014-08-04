@@ -10,6 +10,8 @@
 #import "LCLegendView.h"
 #import "LCInfoView.h"
 
+const struct Thresholds ThresholdsZero = {0.0, 0.0, 0.0, 0.0};
+
 @interface LCLineChartDataItem ()
 
 @property (readwrite) double x; // should be within the x range
@@ -221,6 +223,17 @@
         i++;
     }
 
+    // Draw Thresholds
+    if (![self thresholdIsInitial:self.thresholds]) {
+        NSLog(@"Drawing Thresholds");
+        CGFloat yVal = yStart + round((1.0 - (self.thresholds.upperRedBoundary - self.yMin) / (self.yMax - self.yMin)) * availableHeight);
+        [[UIColor redColor] set];
+        CGContextSetLineDash(c, 0, dashedPattern, 2);
+        CGContextMoveToPoint(c, xStart, round(yVal) + 0.5);
+        CGContextAddLineToPoint(c, self.bounds.size.width - PADDING, round(yVal) + 0.5);
+        CGContextStrokePath(c);
+    }
+
     NSUInteger xCnt = self.xStepsCount;
     if(xCnt > 1) {
         CGFloat widthPerStep = availableWidth / (xCnt - 1);
@@ -429,6 +442,17 @@
         if(labelSize.width > maxV) maxV = labelSize.width;
     }
     return maxV + PADDING;
+}
+
+- (BOOL)thresholdIsInitial:(Thresholds)threshold
+{
+    if (threshold.upperRedBoundary != 0 ||
+        threshold.upperYellowBoundary != 0 ||
+        threshold.lowerYellowBoundary != 0 ||
+        threshold.lowerRedBoundary != 0) {
+        return NO;
+    }
+    return YES;
 }
 
 @end
