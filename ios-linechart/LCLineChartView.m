@@ -322,11 +322,6 @@ const struct Thresholds ThresholdsZero = {0.0, 0.0, 0.0, 0.0};
                 }
 
                 CGContextAddPath(c, path);
-                CGContextSetStrokeColorWithColor(c, [self.backgroundColor CGColor]);
-                CGContextSetLineWidth(c, 5);
-                CGContextStrokePath(c);
-
-                CGContextAddPath(c, path);
                 CGContextSetStrokeColorWithColor(c, [data.color CGColor]);
                 CGContextSetLineWidth(c, 2);
                 CGContextStrokePath(c);
@@ -342,22 +337,8 @@ const struct Thresholds ThresholdsZero = {0.0, 0.0, 0.0, 0.0};
                 LCLineChartDataItem *datItem = data.getData(i);
                 CGFloat xVal = xStart + round((xRangeLen == 0 ? 0.5 : ((datItem.x - data.xMin) / xRangeLen)) * availableWidth);
                 CGFloat yVal = yStart + round((1.0 - (datItem.y - self.yMin) / yRangeLen) * availableHeight);
-                [self.backgroundColor setFill];
-                CGContextFillEllipseInRect(c, CGRectMake(xVal - 5.5, yVal - 5.5, 11, 11));
                 [datItem.dataPointcolor setFill];
                 CGContextFillEllipseInRect(c, CGRectMake(xVal - 4, yVal - 4, 8, 8));
-                {
-                    CGFloat h,s,b,a;
-                    if(CGColorGetNumberOfComponents([datItem.dataPointcolor CGColor]) < 3)
-                        [datItem.dataPointcolor getWhite:&b alpha:&a];
-                    else
-                        [datItem.dataPointcolor getHue:&h saturation:&s brightness:&b alpha:&a];
-                    if(b <= 0.5)
-                        [[UIColor whiteColor] setFill];
-                    else
-                        [[UIColor blackColor] setFill];
-                }
-                CGContextFillEllipseInRect(c, CGRectMake(xVal - 2, yVal - 2, 4, 4));
             } // for
           } // data - draw data points
         } // draw data points
