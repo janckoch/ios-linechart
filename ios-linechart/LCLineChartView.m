@@ -202,7 +202,7 @@ const struct Thresholds ThresholdsZero = {0.0, 0.0, 0.0, 0.0};
     if (![self thresholdIsInitial:self.thresholds]) {
         NSLog(@"Drawing Thresholds");
         // Draw red area
-        [[UIColor colorWithRed:255.0/255.0 green:197.0/255.0 blue:197.0/255.0 alpha:1] set];
+        [[UIColor colorWithRed:255.0/255.0 green:237.0/255.0 blue:237.0/255.0 alpha:1] set];
         CGContextFillRect(c, CGRectMake(xStart, yStart, availableWidth, availableHeight));
 
         // Draw yellow area
@@ -219,7 +219,7 @@ const struct Thresholds ThresholdsZero = {0.0, 0.0, 0.0, 0.0};
 
             float yellowAreaHeight = upperYellowY - lowerYellowY;
 
-            [[UIColor colorWithRed:255.0/255.0 green:255.0/255.0 blue:228.0/255.0 alpha:1] set];
+            [[UIColor colorWithRed:255.0/255.0 green:255.0/255.0 blue:238.0/255.0 alpha:1] set];
             CGContextFillRect(c, CGRectMake(xStart, lowerYellowY , availableWidth, yellowAreaHeight));
         }
 
@@ -235,7 +235,7 @@ const struct Thresholds ThresholdsZero = {0.0, 0.0, 0.0, 0.0};
         }
         float greenAreaHeight = upperGreenY - lowerGreenY;
 
-        [[UIColor colorWithRed:205.0/255.0 green:255.0/255.0 blue:205.0/255.0 alpha:1] set];
+        [[UIColor colorWithRed:235.0/255.0 green:255.0/255.0 blue:235.0/255.0 alpha:1] set];
         CGContextFillRect(c, CGRectMake(xStart, lowerGreenY, availableWidth, greenAreaHeight));
     }
 
