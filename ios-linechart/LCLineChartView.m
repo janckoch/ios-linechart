@@ -226,7 +226,29 @@ const struct Thresholds ThresholdsZero = {0.0, 0.0, 0.0, 0.0};
     // Draw Thresholds
     if (![self thresholdIsInitial:self.thresholds]) {
         NSLog(@"Drawing Thresholds");
+        // TODO: Check for available thresolds
         CGFloat yVal = yStart + round((1.0 - (self.thresholds.upperRedBoundary - self.yMin) / (self.yMax - self.yMin)) * availableHeight);
+        [[UIColor redColor] set];
+        CGContextSetLineDash(c, 0, dashedPattern, 2);
+        CGContextMoveToPoint(c, xStart, round(yVal) + 0.5);
+        CGContextAddLineToPoint(c, self.bounds.size.width - PADDING, round(yVal) + 0.5);
+        CGContextStrokePath(c);
+
+        yVal = yStart + round((1.0 - (self.thresholds.upperYellowBoundary - self.yMin) / (self.yMax - self.yMin)) * availableHeight);
+        [[UIColor yellowColor] set];
+        CGContextSetLineDash(c, 0, dashedPattern, 2);
+        CGContextMoveToPoint(c, xStart, round(yVal) + 0.5);
+        CGContextAddLineToPoint(c, self.bounds.size.width - PADDING, round(yVal) + 0.5);
+        CGContextStrokePath(c);
+
+        yVal = yStart + round((1.0 - (self.thresholds.lowerYellowBoundary - self.yMin) / (self.yMax - self.yMin)) * availableHeight);
+        [[UIColor yellowColor] set];
+        CGContextSetLineDash(c, 0, dashedPattern, 2);
+        CGContextMoveToPoint(c, xStart, round(yVal) + 0.5);
+        CGContextAddLineToPoint(c, self.bounds.size.width - PADDING, round(yVal) + 0.5);
+        CGContextStrokePath(c);
+
+        yVal = yStart + round((1.0 - (self.thresholds.lowerRedBoundary - self.yMin) / (self.yMax - self.yMin)) * availableHeight);
         [[UIColor redColor] set];
         CGContextSetLineDash(c, 0, dashedPattern, 2);
         CGContextMoveToPoint(c, xStart, round(yVal) + 0.5);
